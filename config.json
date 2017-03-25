@@ -33,7 +33,7 @@
       },
       "common": {
         "from": "function",
-        "function": "common-eclipse",
+        "name": "common-eclipse",
         "config": {
           "features": {
             "java": "Java Development tools",
