@@ -4,7 +4,7 @@
 
 # Arch
 function prepare_arch {
-  pacman -S --needed --noconfirm sudo nano base-devel git wget yajl
+  pacman -Sq --needed --noconfirm sudo nano base-devel git wget yajl
   export EDITOR=/bin/nano
 
   if (id -u devinstall &>/dev/null); then
