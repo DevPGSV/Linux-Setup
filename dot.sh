@@ -23,7 +23,7 @@ function prepare_arch {
   pushd /tmp/devinstall
   git clone https://aur.archlinux.org/package-query.git
   git clone https://aur.archlinux.org/yaourt.git
-  chown -R devinstall:devinstall .
+  chown -R devinstall .
   cd package-query
   su -m devinstall -c "makepkg -si"
   cd ../yaourt
