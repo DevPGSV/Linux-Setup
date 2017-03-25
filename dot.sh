@@ -78,8 +78,11 @@ prepare_arch
 
 
 for p in `jq -r ".packages | keys[]" config.json`; do
+  echo -e "\n\n"
+  read -p "Install $p. Press enter to continue"
   pdata=`jq -cr ".packages.$p.$distro" config.json`
   installPackage $p $pdata
+  echo -e "\n\n"
 done
 
 
