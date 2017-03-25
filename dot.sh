@@ -2,6 +2,19 @@
 
 DEV_userinstall="devinstall"
 
+function main {
+  distro="arch"
+  prepare_arch
+
+  for p in `jq -r ".packages | keys[]" config.json`; do
+    echo -e "\n"
+    read -p "Install $p. Press enter to continue"
+    pdata=`jq -cr ".packages.$p.$distro" config.json`
+    installPackage $p $pdata
+    echo -e "\n"
+  done
+}
+
 
 # Debian
 function prepare_debian {
@@ -72,6 +85,8 @@ function installPackage {
 
 
 
+
+
 function debian-telegram-cli-git {
   if [ ! -d "/opt/telegram-cli" ]; then
     apt-get -yq install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev libjansson-dev libpython-dev make gcc
@@ -83,10 +98,10 @@ function debian-telegram-cli-git {
     popd
   fi;
   if [ ! -f "/usr/local/bin/telegram" ]; then
-    cat << EOF > "/usr/local/bin/telegram"
+    cat > "/usr/local/bin/telegram" < '''
     #!/bin/bash
     "/opt/telegram-cli/bin/telegram-cli" -k "/opt/telegram-cli/tg-server.pub" \$@
-    EOF
+    '''
     chmod a+x "/usr/local/bin/telegram"
   fi;
 }
@@ -129,14 +144,4 @@ function common-eclipse {
 }
 
 
-distro="arch"
-prepare_arch
-
-
-for p in `jq -r ".packages | keys[]" config.json`; do
-  echo -e "\n"
-  read -p "Install $p. Press enter to continue"
-  pdata=`jq -cr ".packages.$p.$distro" config.json`
-  installPackage $p $pdata
-  echo -e "\n"
-done
+main
