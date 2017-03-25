@@ -68,6 +68,7 @@ function installPackage {
       ;;
     'apt')
       if (dpkg -s $name &>/dev/null); then
+        echo "$name already installed"
       else
         apt-get -yq install $name
       fi;
