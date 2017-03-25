@@ -6,7 +6,7 @@ function main {
   distro="arch"
   prepare_arch
 
-  for p in `jq -r ".packages | keys[]" config.json`; do
+  for p in `jq -r ".install | keys[]" config.json`; do
     echo -e "\n"
     read -p "Install $p. Press enter to continue"
     pdata=`jq -cr ".packages.$p.$distro" config.json`
@@ -67,10 +67,13 @@ function installPackage {
       pacman -S --needed --noconfirm $name
       ;;
     'apt')
-      apt-get -yq install $name
+      if (dpkg -s $name &>/dev/null); then
+      else
+        apt-get -yq install $name
+      fi;
       ;;
     'aur')
-      su -m $DEV_userinstall -c "yaourt -S --noconfirm --force --needed $name"
+      echo su -m $DEV_userinstall -c "yaourt -S --noconfirm --force --needed $name"
       ;;
     'function')
       $name

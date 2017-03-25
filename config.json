@@ -1,4 +1,9 @@
 {
+  "install": [
+    "git",
+    "tgcli",
+    "eclipse"
+  ],
   "packages": {
     "git": {
       "arch": {
@@ -20,6 +25,16 @@
         "name": "debian-telegram-cli-git"
       }
     },
+    "java": {
+      "arch": {
+        "from": "pacman",
+        "name": "jdk8-openjdk"
+      },
+      "debian": {
+        "from": "apt",
+        "name": "default-jdk"
+      }
+    },
     "eclipse": {
       "arch": {
         "from": "package",
@@ -34,6 +49,7 @@
       "common": {
         "from": "function",
         "name": "common-eclipse",
+        "dependencies": ["java"],
         "config": {
           "features": {
             "java": "Java Development tools",
