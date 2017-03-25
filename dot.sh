@@ -8,6 +8,8 @@ function prepare_arch {
   export EDITOR=/bin/nano
 
   if (id -u devinstall &>/dev/null); then
+    echo "devinstall exists";
+  else
     echo "Setting up devinstall user...";
     useradd -M -N --system -s /bin/bash devinstall
   fi;
