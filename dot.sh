@@ -46,7 +46,6 @@ function prepare_arch {
 
 
 function installPackage {
-  # echo $1 $2
   from=`echo "$2" | jq -r ".from"`
   name=`echo "$2" | jq -r ".name"`
   echo $1 FROM $from NAME $name
@@ -66,50 +65,10 @@ function installPackage {
     'package')
       distro=`echo "$2" | jq -r ".distro"`
       pdata=`jq -cr ".packages.$name.$distro" config.json`
-      echo $pdata;
-      installPackage $1 $pdata
+      installPackage $1 "$pdata"
       ;;
   esac
 }
-
-
-
-distro="arch"
-prepare_arch
-
-
-for p in `jq -r ".packages | keys[]" config.json`; do
-  echo -e "\n"
-  read -p "Install $p. Press enter to continue"
-  pdata=`jq -cr ".packages.$p.$distro" config.json`
-  installPackage $p $pdata
-  echo -e "\n"
-done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -168,3 +127,16 @@ function common-eclipse {
     popd
   fi;
 }
+
+
+distro="arch"
+prepare_arch
+
+
+for p in `jq -r ".packages | keys[]" config.json`; do
+  echo -e "\n"
+  read -p "Install $p. Press enter to continue"
+  pdata=`jq -cr ".packages.$p.$distro" config.json`
+  installPackage $p $pdata
+  echo -e "\n"
+done
