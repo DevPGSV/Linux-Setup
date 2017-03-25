@@ -1,0 +1,52 @@
+{
+  "packages": {
+    "git": {
+      "arch": {
+        "from": "pacman",
+        "name": "git"
+      },
+      "debian": {
+        "from": "apt",
+        "name": "git"
+      }
+    },
+    "tgcli": {
+      "arch": {
+        "from": "aur",
+        "name": "telegram-cli-git"
+      },
+      "debian": {
+        "from": "function",
+        "name": "debian-telegram-cli-git"
+      }
+    },
+    "eclipse": {
+      "arch": {
+        "from": "package",
+        "name": "eclipse",
+        "distro": "common"
+      },
+      "debian": {
+        "from": "package",
+        "package": "eclipse",
+        "name": "common"
+      },
+      "common": {
+        "from": "function",
+        "function": "common-eclipse",
+        "config": {
+          "features": {
+            "java": "Java Development tools",
+            "c++": "C/C++ Development tools",
+            "fortran": "Fortran Development tools",
+            "php": "PHP Development tools",
+            "javascript": "Javascript Development tools",
+            "lua": "Lua Development tools",
+            "git": "Versioning with Git",
+            "web": "Eclipse Web Developer Tools, including HTML, JavaScript, CSS, XHTML, and more."
+          }
+        }
+      }
+    }
+  }
+}
