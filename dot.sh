@@ -6,7 +6,7 @@ function main {
   distro="arch"
   prepare_arch
 
-  for p in `jq -r ".install | keys[]" config.json`; do
+  for p in `jq -r ".install[]" config.json`; do
     echo -e "\n"
     read -p "Install $p. Press enter to continue"
     pdata=`jq -cr ".packages.$p.$distro" config.json`
