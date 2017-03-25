@@ -64,8 +64,9 @@ function installPackage {
       $name
       ;;
     'package')
-      package=`echo "$2" | jq -r ".package"`
-      pdata=`jq -cr ".packages.$package.$name" config.json`
+      distro=`echo "$2" | jq -r ".distro"`
+      pdata=`jq -cr ".packages.$name.$distro" config.json`
+      echo $pdata;
       installPackage $1 $pdata
       ;;
   esac
@@ -78,11 +79,11 @@ prepare_arch
 
 
 for p in `jq -r ".packages | keys[]" config.json`; do
-  echo -e "\n\n"
+  echo -e "\n"
   read -p "Install $p. Press enter to continue"
   pdata=`jq -cr ".packages.$p.$distro" config.json`
   installPackage $p $pdata
-  echo -e "\n\n"
+  echo -e "\n"
 done
 
 
