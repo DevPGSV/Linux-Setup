@@ -4,7 +4,7 @@
 
 # Arch
 function prepare_arch {
-  pacman -S --noconfirm sudo nano
+  pacman -S --needed --noconfirm sudo nano base-devel git wget yajl
   export EDITOR=/bin/nano
 
   if (id -u devinstall &>/dev/null); then
@@ -16,8 +16,6 @@ function prepare_arch {
   else
     echo "devinstall ALL=NOPASSWD: /usr/bin/makepkg" | (EDITOR="tee -a" visudo)
   fi;
-
-  pacman -S --needed base-devel git wget yajl
 
   mkdir -p /tmp/devinstall
   pushd /tmp/devinstall
